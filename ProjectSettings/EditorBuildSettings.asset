@@ -10,5 +10,6 @@ EditorBuildSettings:
       Example Scene.unity
     guid: 1e4f53107259f41718bcd497209accaa
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: c1313209c6cff4b0b8fce0c07639afcd, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2d476cbd4698b4c128228bc8cd3ab282, type: 3}
   m_UseUCBPForAssetBundles: 0

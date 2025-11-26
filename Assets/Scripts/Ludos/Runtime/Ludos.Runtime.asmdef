@@ -1,0 +1,16 @@
+{
+    "name": "Ludos.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:044a771e1332490eaa5e1acb6e8f8744"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

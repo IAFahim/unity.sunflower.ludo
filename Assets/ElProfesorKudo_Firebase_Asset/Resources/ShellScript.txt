@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# The path to the Xcode build folder is automatically defined by Unity.
+# It is located at the current script execution location.
+IOS_BUILD_PATH="$(dirname "$0")"
+
+echo "----------------------------------------------------"
+echo "Starting CocoaPods/Xcode automation script"
+echo "Xcode project path: $IOS_BUILD_PATH"
+echo "----------------------------------------------------"
+
+# Access the Xcode project folder
+cd "$IOS_BUILD_PATH" || { echo "Error: The folder $IOS_BUILD_PATH does not exist or is not accessible."; exit 1; }
+
+echo "1. Cleaning CocoaPods files and folders..."
+rm -rf Pods
+rm -rf *.xcworkspace
+rm -rf Podfile.lock
+
+if command -v pod &> /dev/null; then
+    if [ -f "Podfile" ]; then
+        echo "   -> Executing 'pod deintegrate'..."
+        pod deintegrate || true
+    else
+        echo "   -> No Podfile found, 'pod deintegrate' skipped."
+    fi
+    echo "   -> Cleaning CocoaPods cache..."
+    pod cache clean --all
+else
+    echo "   -> CocoaPods is not installed or not in PATH. Manual folder cleanup only."
+fi
+
+echo "2. Cleaning Xcode DerivedData..."
+# Cleans DerivedData specific to this project if possible, otherwise all
+rm -rf ~/Library/Developer/Xcode/DerivedData/*
+echo "   -> DerivedData cleaned."
+
+echo "3. Installing CocoaPods..."
+if command -v pod &> /dev/null; then
+    if [ -f "Podfile" ]; then
+        pod install
+        if [ $? -eq 0 ]; then
+            echo "CocoaPods installed successfully!"
+        else
+            echo "Error installing CocoaPods. Check logs above."
+            exit 1
+        fi
+    else
+        echo "Error: Podfile not found. Cannot install pods."
+        echo "Ensure your Unity PostProcessBuild script generates the Podfile."
+        exit 1
+    fi
+else
+    echo "Error: CocoaPods is not installed. Please install it (sudo gem install cocoapods)."
+    exit 1
+fi
+
+echo "----------------------------------------------------"
+echo "Script finished. You can now open the .xcworkspace."
+echo "----------------------------------------------------"
+
+echo "Window will close automatically in :"
+for i in {30..1}; do
+    echo "$i seconds..."
+    sleep 1
+done
+echo "Closing window."
+exit 0

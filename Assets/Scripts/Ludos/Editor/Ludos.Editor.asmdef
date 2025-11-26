@@ -1,0 +1,19 @@
+{
+    "name": "Ludos.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:044a771e1332490eaa5e1acb6e8f8744",
+        "GUID:f63181fc98bae486ea80acb42c1bebcf"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

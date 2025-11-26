@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_android_client_id,@string/default_web_client_id">
+  <string name="gcm_defaultSenderId" translatable="false">152386388199</string>
+  <string name="google_storage_bucket" translatable="false">unity-ludo-login.firebasestorage.app</string>
+  <string name="project_id" translatable="false">unity-ludo-login</string>
+  <string name="google_api_key" translatable="false">AIzaSyAdU6qLwBkF4gg90-1bFa0tpNbs04cvwKw</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAdU6qLwBkF4gg90-1bFa0tpNbs04cvwKw</string>
+  <string name="google_app_id" translatable="false">1:152386388199:android:4e9c217df6a8ca6a476242</string>
+  <string name="default_android_client_id" translatable="false">152386388199-8md14ep7092ul9h4ce5c85q1ap4i6qsn.apps.googleusercontent.com</string>
+  <string name="default_web_client_id" translatable="false">152386388199-3lctehml9rubg3bqr8q4oh0fbv922iqk.apps.googleusercontent.com</string>
+</resources>

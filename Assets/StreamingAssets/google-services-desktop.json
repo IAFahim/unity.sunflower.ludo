@@ -1,0 +1,36 @@
+{
+  "project_info": {
+    "project_number": "152386388199",
+    "project_id": "unity-ludo-login",
+    "storage_bucket": "unity-ludo-login.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152386388199:ios:344be513082b3979476242",
+        "android_client_info": {
+          "package_name": "com.coreloopstudio"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_Kf97_tl9zzlkRVduNvp64id5vdBoRGc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152386388199-1skta60ukl4h4gl8q120m7olde9nkqc5.apps.googleusercontent.com"
+        }
+      ]
+    }
+  ],
+  "configuration_version": "1"
+}

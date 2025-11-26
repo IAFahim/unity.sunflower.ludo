@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04035b55bf6d4056848898fcc6217886, type: 3}
+  m_Name: music_volume
+  m_EditorClassIdentifier: Virtuesky.Sunflower.Audio::VirtueSky.Audio.MusicVolumeChange
+  description: 
+  valueDebug: 0
+  typeId: 0
+  guid: 
+  customId: 
+  initializeValue: 1
+  isSetData: 0
+  isSaveData: 0
+  isRaiseEvent: 0
+  currentValue: 0
+  isClamped: 0
+  minMax: {x: 0, y: 100}

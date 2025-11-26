@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/ElProfesorKudo_Firebase_Asset/Scene/ElProfesorKudo - Firebase Toolkit
+      Example Scene.unity
+    guid: 1e4f53107259f41718bcd497209accaa
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2d476cbd4698b4c128228bc8cd3ab282, type: 3}
+  m_UseUCBPForAssetBundles: 0

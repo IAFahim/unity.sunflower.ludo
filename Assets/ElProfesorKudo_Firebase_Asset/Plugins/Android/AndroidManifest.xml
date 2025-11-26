@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <!-- Ask user permision for push notification -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <application>
+        <!-- Used when Application Entry is set to Activity, otherwise remove this activity block -->
+        <activity android:name="com.unity3d.player.UnityPlayerActivity" android:theme="@style/UnityThemeSelector">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+        </activity>
+        <!-- Used when Application Entry is set to GameActivity, otherwise remove this activity block -->
+        <activity android:name="com.unity3d.player.UnityPlayerGameActivity" android:theme="@style/BaseUnityGameActivityTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+            <meta-data android:name="android.app.lib_name" android:value="game" />
+        </activity>
+        <activity android:name="com.elprofesorkudo.googlesigninplugin.GoogleSignInActivity" android:exported="true">
+        </activity>
+        <activity android:name="com.elprofesorkudo.applesigninplugin.AppleSignInActivity" android:launchMode="singleTask" android:exported="true">
+            <intent-filter android:label="Apple Sign In Redirect" android:autoVerify="false">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="" android:path="/redirect.html" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="unitydl" android:host="" />
+            </intent-filter>
+        </activity>
+        <meta-data android:name="com.google.android.gms.auth.api.signin.clientid" android:value="152386388199-3lctehml9rubg3bqr8q4oh0fbv922iqk.apps.googleusercontent.com" />
+        <meta-data android:name="com.elprofesorkudo.googlesigninplugin.receiver" android:value="GameObjectReceiver" />
+        <meta-data android:name="com.elprofesorkudo.notificationplugin.sound_notification_name" android:value="alert" />
+        <meta-data android:name="com.elprofesorkudo.applesigninplugin.receiver" android:value="GameObjectReceiver" />
+    </application>
+</manifest>

@@ -1,0 +1,19 @@
+{
+    "name": "Pushers.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:acb3cac55c622ec459c8caadf707623a",
+        "GUID:35d694408290717499b3838802212c7f",
+        "GUID:bd40169efe8642149b1d2b72ba4903ce"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

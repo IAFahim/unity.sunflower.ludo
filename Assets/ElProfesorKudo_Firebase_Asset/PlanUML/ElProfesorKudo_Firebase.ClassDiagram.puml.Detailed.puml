@@ -1,0 +1,558 @@
+@startuml
+' Diagram parameters
+hide circle
+
+' Skin parameters 
+skinparam class {
+    BackgroundColor White
+    ArrowColor #2F4F4F
+    BorderColor #2F4F4F
+    FontStyle bold
+}
+
+skinparam stereotypeC {
+    FontColor White
+    BackgroundColor #2F4F4F
+}
+
+skinparam class<<Singleton>> {
+    BackgroundColor LightGray
+    BorderColor DarkGray
+}
+
+' =========================================================================
+' Namespace : ElProfesorKudo.Firebase.Common
+' =========================================================================
+namespace Common {
+    class Callback {}
+    class "Callback<T>" {}
+    class "Callback<T, U>" {}
+    class "Callback<T, U, W>" {}
+    
+    enum LogLevel {
+        Debug
+        Info
+        Warning
+        Error
+    }
+    class CustomLogger {
+        + {static} EnableLogging : bool
+        + {static} MinimumLogLevel : LogLevel
+        - {static} _enabledClasses : HashSet<string>
+        + {static} EnableFor(params string[] classNames) : void
+        + {static} DisableFor(params string[] classNames) : void
+        + {static} LogDebug(string message) : void
+        + {static} LogInfo(string message) : void
+        + {static} LogWarning(string message) : void
+        + {static} LogError(string message) : void
+        - {static} Log(string message, LogLevel level) : void
+        - {static} GetCallingClassName() : string
+    }
+    
+    class "Singleton<T>" << (S, #FF7700) Singleton >> {
+        - {static} _instance : T
+        + {static} Instance : T <<get>>
+        # Awake() : void
+    }
+    
+    class Utils {
+        + {static} WaitForTaskWithTimeout(Task task, float timeoutSeconds, Callback onTimeout) : IEnumerator
+        + {static} ExecuteConditionalAction(bool condition, Callback action, string skippedLogMessage) : void
+        + {static} ConvertTexture2DToSprite(this Texture2D texture2D) : Sprite
+        + {static} DownloadImageFromWeb(string urlPicture, Callback<Sprite> spriteCallBack) : IEnumerator
+        + {static} TempCoroutine(Callback callback, int frameWait = 1) : IEnumerator
+    }
+}
+
+' =========================================================================
+' Namespace : ElProfesorKudo.Firebase.Event
+' =========================================================================
+namespace Event {
+    class FirebaseCallbacks {
+        ' Service Events
+        - {static} _onUserChanged : Callback<FirebaseUser>
+        - {static} _onCurrentUserLoaded : Callback<FirebaseUser>
+        - {static} _onFirebaseReady : Callback
+        + {static} SubscribeUserChanged(Callback<FirebaseUser> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeUserChanged(FirebaseUser user) : void
+        + {static} SubscribeCurrentUserLoaded(Callback<FirebaseUser> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeCurrentUserLoaded(FirebaseUser user) : void
+        + {static} SubscribeFirebaseReady(Callback callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeFirebaseReady() : void
+        ' Login/Logout Events
+        - {static} _onLoginSuccess : Callback
+        - {static} _onLoginFailed : Callback<string>
+        - {static} _onLogout : Callback
+        + {static} SubscribeLoginSuccess(Callback callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeLoginSuccess() : void
+        + {static} SubscribeLoginFailed(Callback<string> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeLoginFailed(string errorMsg) : void
+        + {static} SubscribeLogout(Callback callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeLogout() : void
+        ' Registration Events
+        - {static} _onRegisterSuccess : Callback
+        - {static} _onRegisterFailed : Callback<string>
+        + {static} SubscribeRegisterSuccess(Callback callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeRegisterSuccess() : void
+        + {static} SubscribeRegisterFailed(Callback<string> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeRegisterFailed(string errorLog) : void
+        ' Email Verification Events
+        - {static} _onEmailVerificationSent : Callback<string>
+        + {static} SubscribeEmailVerificationSent(Callback<string> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeEmailVerificationSent(string msg) : void
+        ' Password Reset Events
+        - {static} _onPasswordResetSuccess : Callback<string>
+        - {static} _onPasswordResetFailed : Callback<string>
+        + {static} SubscribePasswordResetSuccess(Callback<string> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokePasswordResetSuccess(string msg) : void
+        + {static} SubscribePasswordResetFailed(Callback<string> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokePasswordResetFailed(string errorMsg) : void
+        ' User Data Events
+        - {static} _onUserDataLoaded : Callback<FirebaseUserData>
+        + {static} SubscribeUserDataLoaded(Callback<FirebaseUserData> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeUserDataLoaded(FirebaseUserData data) : void
+        ' User Deletion Events
+        - {static} _onDeleteCurrentUserSuccess : Callback
+        - {static} _onDeleteCurrentUserFailed : Callback<string>
+        + {static} SubscribeDeleteCurrentUserSuccess(Callback callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeDeleteCurrentUserSuccess() : void
+        + {static} SubscribeDeleteCurrentUserFailed(Callback<string> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeDeleteCurrentUserFailed(string error) : void
+        ' User Data Deletion Events
+        - {static} _onDeleteUserDataSuccess : Callback
+        - {static} _onDeleteUserDataFailed : Callback<string>
+        + {static} SubscribeDeleteUserDataSuccess(Callback callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeDeleteUserDataSuccess() : void
+        + {static} SubscribeDeleteUserDataFailed(Callback<string> callback, bool subscribe = true, bool forceNull = true) : void
+        + {static} InvokeDeleteUserDataFailed(string error) : void
+        ' Google Sign-In Android Events
+        - {static} _onGoogleSignInAndroidSuccess : Callback<string>
+        - {static} _onGoogleSignInAndroidFailed : Callback<string>
+        - {static} _onGoogleSignOutAndroidSuccess : Callback
+        - {static} _onGoogleSignOutAndroidFailed : Callback<string>
+        + {static} SubscribeGoogleSignInAndroidSuccess(Callback<string> callback, ...) : void
+        + {static} InvokeGoogleSignInAndroidSuccess(string idToken) : void
+        + {static} SubscribeGoogleSignInAndroidFailed(Callback<string> callback, ...) : void
+        + {static} InvokeGoogleSignInAndroidFailed(string error) : void
+        + {static} SubscribeGoogleSignOutAndroidSuccess(Callback callback, ...) : void
+        + {static} InvokeGoogleSignOutAndroidSuccess() : void
+        + {static} SubscribeGoogleSignOutAndroidFailed(Callback<string> callback, ...) : void
+        + {static} InvokeGoogleSignOutAndroidFailed(string error) : void
+        ' Google Sign-In iOS Events
+        - {static} _onGoogleSignInIOSSuccess : Callback<string>
+        - {static} _onGoogleSignInIOSFailed : Callback<string>
+        - {static} _onGoogleSignOutIOSSuccess : Callback
+        - {static} _onGoogleSignOutIOSFailed : Callback<string>
+        + {static} SubscribeGoogleSignInIOSSuccess(Callback<string> callback, ...) : void
+        + {static} InvokeGoogleSignInIOSSuccess(string idToken) : void
+        + {static} SubscribeGoogleSignInIOSFailed(Callback<string> callback, ...) : void
+        + {static} InvokeGoogleSignInIOSFailed(string error) : void
+        + {static} SubscribeGoogleSignOutIOSSuccess(Callback callback, ...) : void
+        + {static} InvokeGoogleSignOutIOSSuccess() : void
+        + {static} SubscribeGoogleSignOutIOSFailed(Callback<string> callback, ...) : void
+        + {static} InvokeGoogleSignOutIOSFailed(string error) : void
+        ' Apple Sign-In iOS Events
+        - {static} _onAppleSignInIOSSuccess : Callback<string>
+        - {static} _onAppleSignInIOSFailed : Callback<string>
+        - {static} _onAppleSignOutIOSSuccess : Callback
+        - {static} _onAppleSignOutIOSFailed : Callback<string>
+        + {static} SubscribeAppleSignInIOSSuccess(Callback<string> callback, ...) : void
+        + {static} InvokeAppleSignInIOSSuccess(string idToken) : void
+        + {static} SubscribeAppleSignInIOSFailed(Callback<string> callback, ...) : void
+        + {static} InvokeAppleSignInIOSFailed(string error) : void
+        + {static} SubscribeAppleSignOutIOSSuccess(Callback callback, ...) : void
+        + {static} InvokeAppleSignOutIOSSuccess() : void
+        + {static} SubscribeAppleSignOutIOSFailed(Callback<string> callback, ...) : void
+        + {static} InvokeAppleSignOutIOSFailed(string error) : void
+        ' Apple Sign-In Android Events
+        - {static} _onAppleSignInAndroidSuccess : Callback<string>
+        - {static} _onAppleSignInAndroidFailed : Callback<string>
+        - {static} _onAppleSignOutAndroidSuccess : Callback
+        - {static} _onAppleSignOutAndroidFailed : Callback<string>
+        + {static} SubscribeAppleSignInAndroidSuccess(Callback<string> callback, ...) : void
+        + {static} InvokeAppleSignInAndroidSuccess(string idToken) : void
+        + {static} SubscribeAppleSignInAndroidFailed(Callback<string> callback, ...) : void
+        + {static} InvokeAppleSignInAndroidFailed(string error) : void
+        + {static} SubscribeAppleSignOutAndroidSuccess(Callback callback, ...) : void
+        + {static} InvokeAppleSignOutAndroidSuccess() : void
+        + {static} SubscribeAppleSignOutAndroidFailed(Callback<string> callback, ...) : void
+        + {static} InvokeAppleSignOutAndroidFailed(string error) : void
+    }
+
+    class FirebaseCallbackListener {
+        - OnEnable() : void
+        - OnDisable() : void
+        ' Event listener methods
+        - OnUserChanged(FirebaseUser user) : void
+        - OnCurrentUserLoaded(FirebaseUser user) : void
+        - OnFirebaseReady() : void
+        - OnLoginSuccess() : void
+        - OnLoginFailed(string errorMsg) : void
+        - OnLogout() : void
+        - OnRegisterSuccess() : void
+        - OnRegisterFailed(string errorMsg) : void
+        - OnEmailVerificationSent(string emailVerificationMsg) : void
+        - OnPasswordResetSuccess(string msg) : void
+        - OnPasswordResetFailed(string msg) : void
+        - OnUserDataLoaded(FirebaseUserData userData) : void
+        - OnDeleteCurrentUserSuccess() : void
+        - OnDeleteCurrentUserFailed(string error) : void
+        - OnDeleteUserDataSuccess() : void
+        - OnDeleteUserDataFailed(string error) : void
+        - OnGoogleSignInAndroidSuccess(string idToken) : void
+        - OnGoogleSignInAndroidFailed(string error) : void
+        - OnGoogleSignOutAndroidSuccess() : void
+        - OnGoogleSignOutAndroidFailed(string error) : void
+        - OnGoogleSignInIOSSuccess(string idToken) : void
+        - OnGoogleSignInIOSFailed(string error) : void
+        - OnGoogleSignOutIOSSuccess() : void
+        - OnGoogleSignOutIOSFailed(string error) : void
+        - OnAppleSignInIOSSuccess(string idToken) : void
+        - OnAppleSignInIOSFailed(string error) : void
+        - OnAppleSignOutIOSSuccess() : void
+        - OnAppleSignOutIOSFailed(string error) : void
+        - OnAppleSignInAndroidSuccess(string idToken) : void
+        - OnAppleSignInAndroidFailed(string error) : void
+        - OnAppleSignOutAndroidSuccess() : void
+        - OnAppleSignOutAndroidFailed(string error) : void
+    }
+}
+
+' =========================================================================
+' Namespace : ElProfesorKudo.Firebase.Auth
+' =========================================================================
+namespace Auth {
+    class FirebaseClassicAuthService << (S, #FF7700) Singleton >> {
+        + Register(string email, string password) : void
+        - RegisterCoroutine(string email, string password) : IEnumerator
+        + Login(string email, string password) : void
+        - LoginCoroutine(string email, string password) : IEnumerator
+        + Logout() : void
+        - SendEmailVerificationCoroutine() : IEnumerator
+        + SendPasswordResetEmail(string email) : void
+        - SendPasswordResetEmailCoroutine(string email) : IEnumerator
+        - HandleFirebaseException(AggregateException ex) : void
+        - GetFirebaseErrorMessage(AggregateException ex) : string
+        + DeleteCurrentUser() : void
+        + DeleteUserData(Callback callbackDeleteUser) : void
+    }
+}
+
+' =========================================================================
+' Namespace : ElProfesorKudo.Firebase.Core
+' =========================================================================
+namespace Core {
+    class FirebaseCoreService << (S, #FF7700) Singleton >> {
+        - _auth : FirebaseAuth
+        - _firestoreDatabase : FirebaseFirestore
+        - _currentUser : FirebaseUser
+        - _isInitialized : bool
+        + Auth : FirebaseAuth <<get>>
+        + FirestoreDatabase : FirebaseFirestore <<get>>
+        + CurrentUser : FirebaseUser <<get>>
+        + IsInitialized : bool <<get>>
+        # Awake() : void
+        - InitializeFirebase() : void
+        - OnAuthStateChanged(object sender, EventArgs e) : void
+        + SetCurrentUser(FirebaseUser user) : void
+        - OnDestroy() : void
+    }
+}
+
+' =========================================================================
+' Namespace : ElProfesorKudo.Firebase.User.Data
+' =========================================================================
+namespace User.Data {
+    class FirebaseUserData {
+        + Email : string <<get/set>>
+        + DisplayName : string <<get/set>>
+        + CreatedAt : Timestamp <<get/set>>
+        + ProfilePicture : string <<get/set>>
+        + LastLogin : Timestamp <<get/set>>
+        + Description : string <<get/set>>
+        + Score : int <<get/set>>
+        + FcmToken : string <<get/set>>
+        + FirebaseUserData()
+        + FirebaseUserData(string email, string displayName, string profilePictureUrl, string description, int score)
+    }
+    
+    namespace Tracker {
+        interface IFieldUpdate {
+            ApplyIfChanged(FirebaseUserData currentData, FirebaseUserData updateData) : bool
+        }
+        
+        class "FieldUpdate<T>" implements IFieldUpdate {
+            + GetCurrentData : Func<FirebaseUserData, T>
+            + SetNewData : Callback<FirebaseUserData>
+            + NewData : T
+            + ApplyIfChanged(FirebaseUserData currentData, FirebaseUserData updateData) : bool
+        }
+        
+        class FieldUpdateFactory {
+            + {static} Description(string newValue) : FieldUpdate<string>
+            + {static} Score(int newValue) : FieldUpdate<int>
+            + {static} FcmToken(string newValue) : FieldUpdate<string>
+        }
+    }
+    
+    namespace Service {
+        class FirebaseUserDataService << (S, #FF7700) Singleton >> {
+            - _currentUserData : FirebaseUserData
+            + CurrentUserData : FirebaseUserData <<get>>
+            - _isLoading : bool
+            # Awake() : void
+            + GetFirebaseUserDataIfExists(FirebaseUser user, Callback<FirebaseUserData> onResult) : void
+            - FetchUserDataFromFirestoreDatabase(FirebaseUser user, Callback<FirebaseUserData> onResult) : void
+            - EnsureUserDataExistsAndLoad(FirebaseUser user, DocumentReference userDoc, Task<DocumentSnapshot> task, Callback<FirebaseUserData> onResult) : void
+            + SetCurrentUserData(FirebaseUserData currentUserData) : void
+            - RefreshFirebaseUserInfo(FirebaseUser user, Callback fetchDataUser) : void
+            + UpdateUserFieldIfChanged(IFieldUpdate fieldToUpdate, Callback<bool> onComplete) : void
+            + UpdateUserFieldsIfChanged(List<IFieldUpdate> fieldsToUpdate, Callback<bool> onComplete) : void
+        }
+    }
+}
+
+' =========================================================================
+' Namespace : ElProfesorKudo.Firebase.UI
+' =========================================================================
+namespace UI {
+    class FirebaseAuthUIController << (S, #FF7700) Singleton >> {
+        - _loginEmailInput : TMP_InputField
+        - _loginPasswordInput : TMP_InputField
+        - _registerEmailInput : TMP_InputField
+        - _registerPasswordInput : TMP_InputField
+        - _registerConfirmPasswordInput : TMP_InputField
+        - _notificationTextMeshPro : TextMeshProUGUI
+        - _emailRetrieveInput : TMP_InputField
+        - _scoreTextMeshPro : TextMeshProUGUI
+        - _loginPanel : GameObject
+        - _registerPanel : GameObject
+        - _forgetPasswordPanel : GameObject
+        - _googleSignInPanel : GameObject
+        - _appleSignInPanel : GameObject
+        - _uiDataUserPanel : GameObject
+        - _scorePanel : GameObject
+        - _createdAtTextMeshPro : TextMeshProUGUI
+        - _lastLoginTextMeshPro : TextMeshProUGUI
+        - _emailTextMeshPro : TextMeshProUGUI
+        - _descriptionTextMeshPro : TextMeshProUGUI
+        - _descriptionEditInputField : TMP_InputField
+        - _profilePictureImage : Image
+        - _androidGoogleSignIn : FirebaseGoogleSignInAndroid
+        - _iosGoogleSignIn : FirebaseGoogleSignInIOS
+        - _googleSignInHandler : FirebaseAbstractGoogleSignIn
+        - _androidAppleSignIn : FirebaseAppleSignInAndroid
+        - _iosAppleSignIn : FirebaseAppleSignInIOS
+        - _appleSignInHandler : FirebaseAbstractAppleSignIn
+        + ShowLoginPanel() : void
+        + ShowRegisterPanel() : void
+        + ShowForgetPasswordPanel() : void
+        + ShowDeletedPopUp() : void
+        + ShowInfoUserPanel() : void
+        + ShowAppleSignInPanel() : void
+        + ShowScorePanel() : void
+        + ShowGoogleSignInPanel() : void
+        + OnClickLogin() : void
+        + OnClickLogout() : void
+        + OnClickRegister() : void
+        + OnClickResetPassword() : void
+        + OnClickSavedData() : void
+        + OnClickLoadData() : void
+        + OnClickSignInApple() : void
+        + OnClickSignOutApple() : void
+        + OnClickPlusOne() : void
+        + OnClickMinusOne() : void
+        + OnClickSignInGoogle() : void
+        + OnClickSignOutGoogle() : void
+        + SetTexNotification(string text) : void
+        + HideAllPanel() : void
+        + CheckAndDisplayInfoUser(FirebaseUserData userData) : void
+        + LoadData() : void
+    }
+}
+
+' =========================================================================
+' Namespace : ElProfesorKudo.Firebase.PushNotification
+' =========================================================================
+namespace PushNotification {
+    class FirebasePushNotificationManager << (S, #FF7700) Singleton >> {
+        + InitFirebaseMessaging() : void
+        - OnTokenReceived(object sender, TokenReceivedEventArgs token) : void
+        - OnMessageReceived(object sender, MessageReceivedEventArgs e) : void
+        + RequestAndroidNotificationPermission() : void
+        - OnDestroy() : void
+    }
+    
+    namespace Android {
+        class FirebasePushNotificationAndroid {
+            + RegisterToken() : void
+            - HandleReceivedMessage() : void
+        }
+    }
+    
+    namespace iOS {
+        class FirebasePushNotificationIOS {
+            + RequestPermission() : void
+            - HandleReceivedMessage() : void
+        }
+    }
+}
+
+' =========================================================================
+' Namespace : ElProfesorKudo.Firebase.GoogleSignIn
+' =========================================================================
+namespace GoogleSignIn {
+    abstract class FirebaseAbstractGoogleSignIn {
+        # Awake() : void
+        # Start() : void
+        + SignIn() : void
+        # OnGoogleSignInSuccess(string idToken) : void
+        # OnGoogleSignInFailed(string error) : void
+        + SignOut() : void
+        # OnGoogleSignOutSuccess() : void
+        # OnGoogleSignOutFailed(string errorMessage) : void
+    }
+    
+    namespace Android {
+        class FirebaseGoogleSignInAndroid extends FirebaseAbstractGoogleSignIn {
+            - _googleSignInPlugin : AndroidJavaObject
+            # Awake() : void
+            # Start() : void
+            + SignIn() : void
+            # OnGoogleSignInSuccess(string idToken) : void
+            # OnGoogleSignInFailed(string errorMessage) : void
+            + SignOut() : void
+            # OnGoogleSignOutSuccess() : void
+            # OnGoogleSignOutFailed(string errorMessage) : void
+        }
+    }
+    
+    namespace iOS {
+        class FirebaseGoogleSignInIOS extends FirebaseAbstractGoogleSignIn {
+            - {static} _GoogleSignIniOS_SignIn() : void
+            - {static} _GoogleSignIniOS_SignOut() : void
+            - {static} _GoogleSignIniOS_RestoreSignIn() : void
+            # Awake() : void
+            # Start() : void
+            + SignIn() : void
+            # OnGoogleSignInSuccess(string idToken) : void
+            # OnGoogleSignInFailed(string errorMessage) : void
+            + SignOut() : void
+            # OnGoogleSignOutSuccess() : void
+            # OnGoogleSignOutFailed(string errorMessage) : void
+        }
+    }
+}
+
+' =========================================================================
+' Namespace : ElProfesorKudo.Firebase.AppleSignIn
+' =========================================================================
+namespace AppleSignIn {
+    abstract class FirebaseAbstractAppleSignIn {
+        # Awake() : void
+        # Start() : void
+        + SignIn() : void
+        # OnAppleSignInSuccess(string idToken) : void
+        # OnAppleSignInFailed(string error) : void
+        + SignOut() : void
+        # OnAppleSignOutSuccess() : void
+        # OnAppleSignOutFailed(string errorMessage) : void
+    }
+    
+    namespace Android {
+        class FirebaseAppleSignInAndroid extends FirebaseAbstractAppleSignIn {
+            - _appleSignInPlugin : AndroidJavaObject
+            # Awake() : void
+            # Start() : void
+            # OnAppleSignInSuccess(string idToken) : void
+            # OnAppleSignInFailed(string error) : void
+            + SignOut() : void
+            # OnAppleSignOutSuccess() : void
+            # OnAppleSignOutFailed(string errorMessage) : void
+            - SensitiveValueSet() : void
+        }
+    }
+    
+    namespace iOS {
+        class FirebaseAppleSignInIOS extends FirebaseAbstractAppleSignIn {
+            - {static} _AppleSignIniOS_SignIn() : void
+            - {static} _AppleSignIniOS_SignOut() : void
+            # Awake() : void
+            # Start() : void
+            + SignIn() : void
+            # OnAppleSignInSuccess(string idToken) : void
+            # OnAppleSignInFailed(string error) : void
+            + SignOut() : void
+            # OnAppleSignOutSuccess() : void
+            # OnAppleSignOutFailed(string errorMessage) : void
+        }
+    }
+}
+
+' =========================================================================
+' Relations between classes
+' =========================================================================
+' Singleton Dependencies
+FirebaseClassicAuthService ..> Core.FirebaseCoreService : uses
+FirebaseClassicAuthService ..> Common.Utils : uses
+FirebaseClassicAuthService ..> Event.FirebaseCallbacks : invokes
+FirebaseClassicAuthService ..> User.Data.Service.FirebaseUserDataService : uses
+
+Core.FirebaseCoreService ..> Common.CustomLogger : uses
+Core.FirebaseCoreService ..> Event.FirebaseCallbacks : invokes
+Core.FirebaseCoreService ..> PushNotification.FirebasePushNotificationManager : uses
+
+User.Data.Service.FirebaseUserDataService ..> Core.FirebaseCoreService : uses
+User.Data.Service.FirebaseUserDataService ..> Common.CustomLogger : uses
+User.Data.Service.FirebaseUserDataService ..> Event.FirebaseCallbacks : invokes
+User.Data.Service.FirebaseUserDataService ..> User.Data.FirebaseUserData : creates/uses
+User.Data.Service.FirebaseUserDataService ..> User.Data.Tracker.IFieldUpdate : uses
+
+PushNotification.FirebasePushNotificationManager ..> Common.CustomLogger : uses
+PushNotification.FirebasePushNotificationManager ..> User.Data.Service.FirebaseUserDataService : uses
+PushNotification.FirebasePushNotificationManager ..> User.Data.Tracker.FieldUpdateFactory : uses
+PushNotification.FirebasePushNotificationManager ..> PushNotification.Android.FirebasePushNotificationAndroid : uses
+PushNotification.FirebasePushNotificationManager ..> PushNotification.iOS.FirebasePushNotificationIOS : uses
+
+' Authentication class dependencies
+AppleSignIn.FirebaseAbstractAppleSignIn ..> Common.CustomLogger : uses
+AppleSignIn.Android.FirebaseAppleSignInAndroid ..> Core.FirebaseCoreService : uses
+AppleSignIn.Android.FirebaseAppleSignInAndroid ..> Event.FirebaseCallbacks : invokes
+AppleSignIn.iOS.FirebaseAppleSignInIOS ..> Event.FirebaseCallbacks : invokes
+
+GoogleSignIn.FirebaseAbstractGoogleSignIn ..> Common.CustomLogger : uses
+GoogleSignIn.Android.FirebaseGoogleSignInAndroid ..> Event.FirebaseCallbacks : invokes
+GoogleSignIn.Android.FirebaseGoogleSignInAndroid ..> Core.FirebaseCoreService : uses
+GoogleSignIn.iOS.FirebaseGoogleSignInIOS ..> Event.FirebaseCallbacks : invokes
+GoogleSignIn.iOS.FirebaseGoogleSignInIOS ..> Core.FirebaseCoreService : uses
+
+' Callback and listener dependencies
+Event.FirebaseCallbackListener ..> Event.FirebaseCallbacks : subscribes
+Event.FirebaseCallbackListener ..> Common.CustomLogger : uses
+Event.FirebaseCallbackListener ..> UI.FirebaseAuthUIController : uses
+
+' UI dependencies
+UI.FirebaseAuthUIController ..> Auth.FirebaseClassicAuthService : uses
+UI.FirebaseAuthUIController ..> Core.FirebaseCoreService : uses
+UI.FirebaseAuthUIController ..> Common.CustomLogger : uses
+UI.FirebaseAuthUIController ..> User.Data.Service.FirebaseUserDataService : uses
+UI.FirebaseAuthUIController ..> User.Data.FirebaseUserData : uses
+UI.FirebaseAuthUIController ..> User.Data.Tracker.FieldUpdateFactory : uses
+UI.FirebaseAuthUIController ..> GoogleSignIn.Android.FirebaseGoogleSignInAndroid : uses
+UI.FirebaseAuthUIController ..> GoogleSignIn.iOS.FirebaseGoogleSignInIOS : uses
+UI.FirebaseAuthUIController ..> AppleSignIn.Android.FirebaseAppleSignInAndroid : uses
+UI.FirebaseAuthUIController ..> AppleSignIn.iOS.FirebaseAppleSignInIOS : uses
+UI.FirebaseAuthUIController ..> AppleSignIn.FirebaseAbstractAppleSignIn : uses
+UI.FirebaseAuthUIController ..> GoogleSignIn.FirebaseAbstractGoogleSignIn : uses
+UI.FirebaseAuthUIController ..> PopUp.PopUpManager : uses
+
+' Inheritance relationships
+GoogleSignIn.Android.FirebaseGoogleSignInAndroid --|> GoogleSignIn.FirebaseAbstractGoogleSignIn
+GoogleSignIn.iOS.FirebaseGoogleSignInIOS --|> GoogleSignIn.FirebaseAbstractGoogleSignIn
+AppleSignIn.Android.FirebaseAppleSignInAndroid --|> AppleSignIn.FirebaseAbstractAppleSignIn
+AppleSignIn.iOS.FirebaseAppleSignInIOS --|> AppleSignIn.FirebaseAbstractAppleSignIn
+"Singleton<T>" <|-- FirebaseCoreService
+"Singleton<T>" <|-- FirebaseClassicAuthService
+"Singleton<T>" <|-- FirebaseUserDataService
+"Singleton<T>" <|-- FirebasePushNotificationManager
+@enduml

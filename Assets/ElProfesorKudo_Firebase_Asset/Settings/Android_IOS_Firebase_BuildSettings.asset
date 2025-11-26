@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644b6ed08052943708ec51a493bf3f3c, type: 3}
+  m_Name: Android_IOS_Firebase_BuildSettings
+  m_EditorClassIdentifier: 
+  GameObjectReceiverName: GameObjectReceiver
+  AllowUpdateGameObjectReceiverName: 1
+  AllowAutoTrimClientIDs: 1
+  WebClientID: 152386388199-3lctehml9rubg3bqr8q4oh0fbv922iqk.apps.googleusercontent.com
+  AllowUpdateSwiftWebClientID: 1
+  GIDClientID: 152386388199-1skta60ukl4h4gl8q120m7olde9nkqc5.apps.googleusercontent.com
+  AllowUpdateInfoPlist: 1
+  AllowInjectFirebaseInit: 1
+  AllowOverridePodfile: 1
+  AllowApplyXcodeProjectSettings: 1
+  AllowGenerateShellScript: 1
+  AllowAutoRunShellScript: 1
+  IOSNotificationSoundName: alert.wav
+  UseCustomIOSNotificationSound: 1
+  AllowInjectManifestData: 1
+  AllowInjectManifestDataAndroid: 1
+  AndroidWebClientID: 152386388199-3lctehml9rubg3bqr8q4oh0fbv922iqk.apps.googleusercontent.com
+  AllowInjectManifestDataIos: 1
+  AndroidAppleRedirectUri: 
+  AndroidRedirectHost: 
+  AndroidRedirectPath: /redirect.html
+  AndroidCustomScheme: unitydl
+  AndroidCustomHost: 
+  ReadMe: "////////////       IMPORTANT         \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n-
+    Hardcoding the Client ID and Cloud Function URL in AndroidManifest.xml \nis NOT
+    recommended, as these sensitive values can be exposed publicly.\n- This is for
+    TESTING ONLY.\n- I\u2019m not responsible for any leaks or misuse.\n- For better
+    security, fetch these values from a backend service at runtime.\n- If a backend
+    isn\u2019t possible, use the SensitiveValueSet() method \nin FirebaseAppleSignInAndroid
+    to set them in memory during execution,\nor hardcoded it in to the aar file to
+    minimizing exposure.\n- Follow these guidelines to keep your app and users safe."
+  AppleClientID: 
+  AppleCloudFunctionUrl: 
+  AndroidNotificationSoundName: alert

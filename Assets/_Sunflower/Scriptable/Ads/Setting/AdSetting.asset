@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4faf330974234e808669c796dc78cdee, type: 3}
+  m_Name: AdSetting
+  m_EditorClassIdentifier: Virtuesky.Sunflower.Advertising::VirtueSky.Ads.AdSetting
+  adCheckingInterval: 8
+  adLoadingInterval: 15
+  useMax: 0
+  useAdmob: 1
+  useLevelPlay: 0
+  enableTrackAdRevenue: 1
+  enableGDPR: 1
+  enableGDPRTestMode: 1
+  sdkKey: 
+  maxBannerVariable: {fileID: 0}
+  maxInterVariable: {fileID: 0}
+  maxRewardVariable: {fileID: 0}
+  maxAppOpenVariable: {fileID: 0}
+  admobBannerVariable: {fileID: 11400000, guid: f592618ed4e2f4565994163d93719bd5, type: 2}
+  admobInterVariable: {fileID: 11400000, guid: 440a62ac8e36448aa8757045ca54e210, type: 2}
+  admobRewardVariable: {fileID: 11400000, guid: ac0fa7d62feea445bad7f095e1839ee7, type: 2}
+  admobRewardInterVariable: {fileID: 11400000, guid: c586f65c367ea4201b4b98d545d4ee56, type: 2}
+  admobAppOpenVariable: {fileID: 11400000, guid: 51eb77297f09e4fa498c650e371eb7b9, type: 2}
+  admobNativeOverlayVariable: {fileID: 11400000, guid: e13a49946493c444cb066402eea2489c, type: 2}
+  autoTrackingAdImpressionAdmob: 1
+  admobEnableTestMode: 1
+  admobDevicesTest: []
+  androidAppKey: 
+  iOSAppKey: 
+  useTestAppKey: 0
+  levelPlayBannerVariable: {fileID: 0}
+  levelPlayInterVariable: {fileID: 0}
+  levelPlayRewardVariable: {fileID: 0}

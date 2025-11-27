@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29916582115e4c9cb2ecb163fc4fe147, type: 3}
-  m_Name: Game Hub
+  m_Name: Ludo Hub
   m_EditorClassIdentifier: Unity.SignalR.Runtime::SignalRLib.Architecture.SignalRHubServiceSO
   serverUrl: http://localhost:5525
-  hubPath: /hubs/game
+  hubPath: /hubs/ludo
   authSession: {fileID: 11400000, guid: bc3dad81f5f454e9bac19988c7de4f78, type: 2}
   incomingChannels:
-  - {fileID: 11400000, guid: abd0450e4cf0148db9a7661442d14fae, type: 2}
-  - {fileID: 11400000, guid: d47a6b4c41abc4075b7b68998e405ce1, type: 2}
-  onStatusChanged: {fileID: 11400000, guid: cae6ff5b06bb042ff9a19b3ff3a256ec, type: 2}
+  - {fileID: 11400000, guid: 66b4e0435e87b4e828fc11bf070c0661, type: 2}
+  - {fileID: 11400000, guid: 9e2f9aeb2bb934b48aba7dae73512294, type: 2}
+  onStatusChanged: {fileID: 11400000, guid: 9ab34d125e4fa4a7ab838a0d143b6d17, type: 2}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7403481dc1f5472fb389d85c74090ef5, type: 3}
-  m_Name: Ping Pong Event
+  m_Name: Event_Status_Changed
   m_EditorClassIdentifier: Virtuesky.Sunflower.Event::VirtueSky.Events.StringEvent
   description: 
   valueDebug: 

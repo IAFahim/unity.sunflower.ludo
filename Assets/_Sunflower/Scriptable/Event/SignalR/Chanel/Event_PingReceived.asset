@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d79f62e106384907af0749790d00e64e, type: 3}
-  m_Name: Ping Pong Channel
+  m_Name: Event_PingReceived
   m_EditorClassIdentifier: Unity.SignalR.Runtime::SignalRLib.Implementations.StringChannel
   methodName: Ping
   onMessageReceived: {fileID: 11400000, guid: 1a00991962847410ba920498d18ad9d4, type: 2}

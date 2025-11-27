@@ -1,4 +1,3 @@
-// FILE: Assets/SignalRLib/Architecture/SignalRHubServiceSO.cs
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.SignalR.Client;

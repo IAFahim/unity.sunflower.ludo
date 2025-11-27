@@ -644,8 +644,106 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0615e741609344e49dd0d00a4efc4979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Ui.Runtime::DefaultNamespace.StringEventTMP
-  stringEvent: {fileID: 11400000, guid: aae9f00c489d8425b9a36d50b2f65bb4, type: 2}
+  stringEvent: {fileID: 11400000, guid: 04d8afb59ceaf432c94f9d2e92958b9c, type: 2}
   text: {fileID: 28725781}
+--- !u!1 &417383489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417383494}
+  - component: {fileID: 417383493}
+  - component: {fileID: 417383492}
+  - component: {fileID: 417383491}
+  - component: {fileID: 417383490}
+  m_Layer: 0
+  m_Name: Ludo Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &417383490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417383489}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a618bc2843e4498863673f5cfea07bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Ui.Runtime::Ludos.Client.UI.LudoUI
+  manager: {fileID: 417383493}
+  roomIdInput: {fileID: 0}
+  joinBtn: {fileID: 0}
+  createBtn: {fileID: 0}
+  rollDiceBtn: {fileID: 0}
+  statusText: {fileID: 0}
+  diceValueText: {fileID: 0}
+--- !u!114 &417383491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417383489}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d14b47d251b4bfc8beace46a974fc13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Ludos.Runtime::LudoBotDebugger
+  gameChannel: {fileID: 11400000, guid: dd87b6ece7b5840adbc2d33420ce11b2, type: 2}
+  autoPlay: 0
+  autoStepInterval: 0.1
+--- !u!114 &417383492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417383489}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23258e2818da49119279efd08794e134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::Ludos.Client.Visuals.LudoTokenInput
+--- !u!114 &417383493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417383489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975bff16244b482db5c77a884e3323a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::Ludos.Client.LudoGameManager
+  ludoHub: {fileID: 11400000, guid: 86776f6d5ad8f473dbfdc6d98df7f94f, type: 2}
+  authSession: {fileID: 11400000, guid: bc3dad81f5f454e9bac19988c7de4f78, type: 2}
+  onGameStateReceived: {fileID: 11400000, guid: 00ef4a0f607904685ae0413037c9bb9e, type: 2}
+  onRollResultReceived: {fileID: 11400000, guid: dc2d11946c709480987753ca943325dc, type: 2}
+  onPlayerJoined: {fileID: 11400000, guid: 74b84387b486b4b9e8f32b7be7831c64, type: 2}
+--- !u!4 &417383494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417383489}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &485519743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,6 +1564,7 @@ GameObject:
   - component: {fileID: 1867266205}
   - component: {fileID: 1867266208}
   - component: {fileID: 1867266209}
+  - component: {fileID: 1867266210}
   m_Layer: 0
   m_Name: SignalR
   m_TagString: Untagged
@@ -1485,7 +1584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d431cb080c230492faf97d1858c8b56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SignalRPingPong
-  accessToken: CfDJ8OjrxVm0A_dHsEiPwh-yNB58pfGiavSGaScVl1KGeH2MI9a5C38jxhiHGYV3Ysr3VAJq87uNbqGmGVTJuKuXA1Nm3UrOXk99RjN2VMpU4sYjHje0A8cOJM49IZp8hG87-JgxHjkeHcbuJ1uZ5MBqZj0GLIcfA1-b9zWRPMOqdELbn6C0-3hkXBCYnJnJ2VD0r15q_VgGIhz74q0zj4ro7DvZ1DxS3k5NVQk2TmcgZKP0HDWoptDATwmxCG2k891Q-McoYg2UjvPTYr_0r25AQwavmAa6C_G8O-LdUOApBssOLyKEIHG9cTKhBLSU6FjSoCkUO9FIZ4sc25DVDiepDfThi9rfVgPSR_0FjW7fS0pcbhG83IIGCal7jSKEFb_YIbLHUgGnARXpi7lQ6oCq3otL8qGRCuFYhcPMIYwBaKp18N0wrIpJw7_Oq6AYKF39NGZz2yo5kicIz4102NJyr41NwTfQYQiDYqLjfHj-izHpRzDzTp3ExhGTisXql903SZ60cBusz4ByIgZw4oydmgqyzYKS_JUYnvgC9R28IB_b6a4efpd17h201p1rx3zRxx6iTk47uoQ0ctwHAqExQAaRxKRmdNXUsSCKa8TTSD5Ll4NHk9H5QFwi3YNVIY2WEVYXaI3_vV2yso_4oa_t0sr4T2NJlgyZntElo6k-GfPzzWp-s4qZhh1k3dvHOHAQ1O55z9P5v1Aq4VR1TmQiFLnuNUCXaWf7UpG1O2LWa6C3
+  accessToken: CfDJ8OjrxVm0A_dHsEiPwh-yNB4NPLc9siT3-hbWqyfjwBCsPrT3xfaeZPlo6uCp5p0c_oXm5TxTC4HbVJIwmpCoboG10kp22R0MlLVfE-pFBY4yRdI4O1-2wypIIrfwKIDeJU_rPG0Lg_Nu1S6TFHpYgAAeGhzK8zl-PzWwtMaBsq4dtswq7Ze4gaUCkDqgULKBUFFKTAOb299wzlZCjeoWdlrvIC6wplRmRYLAmH_PLxk5BDAYx2q7jAvwJ7gA0DCD5BGxV6sAnEeeH0O4aHGghSlWv4zq4XmxFbpaaGL5kABkx-daZJ3VP_RpJIJfqhECAp1WfEH1aKE4cC_A1hBq2swc5digVnlERxQ0UnxV2wb6isTU3hglSLWU8qXBkjVN20id_7T7-RE16rU1xUvgKcjZ-UTwcqpcVNquS2lkj8XCtsV0ljy3kJy4LYIaY99L3EFION17sQ1debozPR67K5KcSCuEOo45VrKILZa_DCT4E06AG5f-kCH6DHMKVukaGMvh53LeEzGy8oB2TTkGxmMHdsyPyMzowKunKpxvEZxgVe_ldbRV9l3FCQXQ-mxR379a882cAPg2JCXhfBB4SsE3cev0VCC-wmiWeAFVEG-bCYeG4SbLDc_Vv5X96IZQQI9BNkC0qB2Wc6HOV0AbO_pUe8z3A6bIR4ZVK5zhhku7zrB4VJyvlNKN0O2MN3Xw2Bj_bnksic74s-tKD2B_114j4bNT0mm3z8jPCyOP6BC0
 --- !u!4 &1867266206
 Transform:
   m_ObjectHideFlags: 0
@@ -1516,7 +1615,7 @@ MonoBehaviour:
   gameHub: {fileID: 11400000, guid: e9fe6c5d37a9a44aaa3aaaac2db30758, type: 2}
   authSession: {fileID: 11400000, guid: bc3dad81f5f454e9bac19988c7de4f78, type: 2}
   onPlayerUpdated: {fileID: 11400000, guid: aae9f00c489d8425b9a36d50b2f65bb4, type: 2}
-  token: CfDJ8OjrxVm0A_dHsEiPwh-yNB7Cuu6Rcc-esyG4-hBLZjTlqsSsL2UVGKD_hAzY5SopJgl7kJHtoUp3rnOUVQSsVGZkhkm5-tpnaH-L0e7jYAgsKN2kGvMjWtftgrnOIBfNCeZUPH4KtfReWj67MUtVjfGu_nEMm_k_3fDeyPYzIUeYYsv9bgj7YK8SvbCP5Rhp2SOwSsG_OYtLEPev1tBE1WEdR0ou_5ES_U7wJnm5uyP33ry4v5qvWMJtRNgtZVzP8J2Rc4yagTEShFd2ArYYV_99_Cx-lUJIa297mbuF_RJ8WZOtc_Iiz8a-wpEEO5mYrAxKv1TnlQ4FchvVJXVNCmYdZuBGFsvLo-vpc47H6TyBJtNA8S7allrqLtBun5bsft_vf9UbV1nG4ZbniDUNWxXG4RVl3SsPmRAY1Utd2w-mhViv7f6rH3MUgDpJ7-zIrJ8GUGzCqWP5c3IiLtbfI4UfYBMr99SGs-V4K7RuYXG6gknYCXlcEdNeHVxLUy5tpY34tQYCR59IkdBlMEcuFiIOo7Xakys88oCwLpihbLwoHQ9G7jtL-zkS7atPHx-bhi2rZEiY5lyWyWfp6siP_siVDfWAGce7JH3WV3OTv0X8BYJZVcsyVeBcb1CdlRo67mkLqD2MPEyBaa0PLgBXZOScJnu9-pDK2EVY7N3MCFCs9zsAnM5376X6CQ6t6KvPh9BpHTYHF9jO-jT3TzXdtctwM3fuDnegDOt9v-rnnlaJ
+  token: CfDJ8OjrxVm0A_dHsEiPwh-yNB42LWUKorA9BYdwl6zYb-ys5g6m9hvZTh5o_vnZg9SeU4HhV6WXApIQVCv1Llp4ugQLTmlfhmqosupx5-NFhYbqsPoxwn1BNMK-VTWYwgGKBPy0CAEzBslTcfjA-Ma-50HUVF4zKP9gnxtoOc10W-ItootjxxWJJFhlJCOAPI-suy_Yg7eUDNaGMerpAZPc8dD5NVMGlrmqNLiGaSbf-B3Xf_vDCaRFSm6B4tC-xcCsOLkC_ZgGWjk08nkhPliI8OsusshRAcdrFzRAOqUSN0xBUgQmQyent0Zsqsr9yp-Pfxijtb7sgisM94TkOvpndjVyEH7xUfPvxoPrKy2g4uQiI_K0lQnrvnIrV1_0jHMsgsnNbCHezIL6RPTrsDi8Z-sIn19ArMuMxUjENW_gW2xqKhsF1JNHIIzk8iPgX_NFZ7H3QvqQ-8b4-wHt5kF2NP_BE479FTyAgXF8b90qnkVWm_HOl8gVfoqzEjFEXaQzxHaKcV4Wzs1rx4vZ39DLRIu_RhqblNXvoleZpOzihB8m6ukaPdKPD9e5XogdFQTMKl5nBDQWif4xYWxHyddcSCmOjGnxO_iC9AvPmltu7K0YLG1BIHuIVSKSqSNQJScG89d0qPNvq57bWKVy_n1VHy5ysGVuTQEl6iFZiczx04JKI45RK-OWmbmllU-teHtJZTsoTXrr8UY4jSGkdFwqUGmpV3Y_cSpZIlDSRKti5w4O
 --- !u!114 &1867266209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,7 +1629,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.SignalR.Runtime::PingPongTester
   gameHub: {fileID: 11400000, guid: e9fe6c5d37a9a44aaa3aaaac2db30758, type: 2}
-  onPongReceived: {fileID: 11400000, guid: 1a00991962847410ba920498d18ad9d4, type: 2}
+  onPongReceived: {fileID: 11400000, guid: 04d8afb59ceaf432c94f9d2e92958b9c, type: 2}
+--- !u!114 &1867266210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867266204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb5db2559c84cb5a8ef6d02a2c10d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::UnityMainThreadDispatcher
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1543,3 +1654,4 @@ SceneRoots:
   - {fileID: 819086077}
   - {fileID: 284100593}
   - {fileID: 1867266206}
+  - {fileID: 417383494}

@@ -1,6 +1,3 @@
-// FILE: Assets/Scripts/Gameplay/GameManager.cs
-
-using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using SignalRLib.Architecture;
@@ -18,6 +15,7 @@ public class SingalRManager : MonoBehaviour
     [Header("Incoming Events")]
     [SerializeField] private PlayerUpdatedEvent onPlayerUpdated;
     
+    [TextArea] 
     public string token;
 
     private void OnEnable()

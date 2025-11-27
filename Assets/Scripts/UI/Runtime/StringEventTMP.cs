@@ -8,7 +8,7 @@ namespace DefaultNamespace
 {
     public class StringEventTMP : MonoBehaviour
     {
-        public PlayerUpdatedEvent stringEvent;
+        public StringEvent stringEvent;
         public TMP_Text text;
         
         private void OnEnable()
@@ -16,9 +16,9 @@ namespace DefaultNamespace
             stringEvent.AddListener(OnTestChange);
         }
 
-        private void OnTestChange(PlayerUpdatedMessage playerUpdatedMessage)
+        private void OnTestChange(string str)
         {
-            text.text = playerUpdatedMessage.Email;
+            text.text = str;
         }
 
 

@@ -1312,8 +1312,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1867266206}
   - component: {fileID: 1867266205}
+  - component: {fileID: 1867266208}
+  - component: {fileID: 1867266207}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SignalR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1326,7 +1328,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867266204}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d431cb080c230492faf97d1858c8b56a, type: 3}
   m_Name: 
@@ -1347,6 +1349,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1867266207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867266204}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32973a9523354ded8c983755f0479944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::Game.PlayerController
+  signalRManager: {fileID: 1867266208}
+  onPlayerMovedEvent: {fileID: 0}
+  moveMethodName: MovePlayer
+--- !u!114 &1867266208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867266204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf79ec1667b6444ea5a3cc39c1464516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::SignalRLib.Core.SignalRManager
+  serverConfig: {fileID: 11400000, guid: 22746b915c988486dab9883e0d476f5f, type: 2}
+  incomingChannels:
+  - {fileID: 11400000, guid: 7f4074ac92ae8467a9e952543ac3192d, type: 2}
+  onConnectionStatusChanged: {fileID: 11400000, guid: 79cf81cea50e8429a968aaf553dc8d27, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

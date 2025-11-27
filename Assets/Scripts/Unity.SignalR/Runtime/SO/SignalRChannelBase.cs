@@ -1,18 +1,17 @@
-// FILE: Assets/SignalRLib/SO/SignalRChannelBase.cs
+// FILE: Assets/SignalRLib/Architecture/SignalRChannelBase.cs
 using System;
 using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine;
 
-namespace SignalRLib.SO
+namespace SignalRLib.Architecture
 {
     public abstract class SignalRChannelBase : ScriptableObject
     {
-        [Tooltip("The exact method name defined in the C# Server Hub")]
+        [Tooltip("Method name on the Server Hub")]
         public string methodName;
 
         /// <summary>
-        /// Registers the channel and returns the subscription handle.
-        /// Call .Dispose() on this handle to unsubscribe.
+        /// Registers the listener and returns a disposable handle
         /// </summary>
         public abstract IDisposable Register(HubConnection connection);
     }

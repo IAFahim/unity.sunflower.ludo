@@ -119,6 +119,142 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &28725779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 28725780}
+  - component: {fileID: 28725782}
+  - component: {fileID: 28725781}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &28725780
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28725779}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 284100593}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &28725781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28725779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: String Event
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &28725782
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28725779}
+  m_CullTransparentMesh: 1
 --- !u!1 &29473371
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +536,7 @@ GameObject:
   - component: {fileID: 284100592}
   - component: {fileID: 284100591}
   - component: {fileID: 284100590}
+  - component: {fileID: 284100594}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -487,6 +624,7 @@ RectTransform:
   - {fileID: 1084451967}
   - {fileID: 485519744}
   - {fileID: 632938933}
+  - {fileID: 28725780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -494,6 +632,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &284100594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284100589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0615e741609344e49dd0d00a4efc4979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Ui.Runtime::DefaultNamespace.StringEventTMP
+  stringEvent: {fileID: 11400000, guid: aae9f00c489d8425b9a36d50b2f65bb4, type: 2}
+  text: {fileID: 28725781}
 --- !u!1 &485519743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,7 +1465,7 @@ GameObject:
   - component: {fileID: 1867266206}
   - component: {fileID: 1867266205}
   - component: {fileID: 1867266208}
-  - component: {fileID: 1867266207}
+  - component: {fileID: 1867266209}
   m_Layer: 0
   m_Name: SignalR
   m_TagString: Untagged
@@ -1333,7 +1485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d431cb080c230492faf97d1858c8b56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SignalRPingPong
-  accessToken: CfDJ8OjrxVm0A_dHsEiPwh-yNB6UYFL_qUTJ4fjGqHBwYG2UjwzPHdnXZzmNbmN7m1RHzoy9T62haPjb4CBqtY1BUlxn6Xm9jW08OtrlCNrFBfEU7J0oWzfetGtdaL94iHNpRHSkdR9gtPMfbUnha3b_9wg5QhtelOu310qHdL9G-s2vCHvPl56ylRdD3KExPv_-sLK9Ti8yo_D0RlPF2QuZ41P8G0MQHmnjL9d3rCXFoaKn5XKlEM5T8_lQaXttbcF3E-07Xq6EoZG3lJest0dbQTKrCIlbn6_aOhkVpaLg7jP27R1q7QfacU_uuCxdLQgJVsoOY_9rOs2_-4pFuR5U0NeQk8vv3zLtTMZRu9g96NWwsG-qlSguUHMI4sq85DIqtEuN_FyrnORajgC0_YczXscya0dfZ_J1Zg43yd58laohly48WNSUJGupSz1Wj_37QYI0HdNg9l2P1DR-Km1LrpUzjnNwW4GGkrQjjeCV00zLfa3JDDBVJQAyM5HEOuro8ZJJEPKYp9FSjmpsQ29559811gmcKQ8thrMy6b9UivCSgXw2K5wBDdMVd2W9PytUOEnBX_gAlOmz8dZ_6im8d8jtbVDV7nsDkSHFUFbpwpIaf2JaPZFeB6BaWyLZzErRGnaGd9PHQK7Eq0sO5jNiHBr8oItwj8oWz_mM93xFwuRoeqBYKSd9r26lBEQVz18xLUz04XLLwpuegCw-GL5HQ9vM_f9ddWX1bXYzOU6uW6EE
+  accessToken: CfDJ8OjrxVm0A_dHsEiPwh-yNB58pfGiavSGaScVl1KGeH2MI9a5C38jxhiHGYV3Ysr3VAJq87uNbqGmGVTJuKuXA1Nm3UrOXk99RjN2VMpU4sYjHje0A8cOJM49IZp8hG87-JgxHjkeHcbuJ1uZ5MBqZj0GLIcfA1-b9zWRPMOqdELbn6C0-3hkXBCYnJnJ2VD0r15q_VgGIhz74q0zj4ro7DvZ1DxS3k5NVQk2TmcgZKP0HDWoptDATwmxCG2k891Q-McoYg2UjvPTYr_0r25AQwavmAa6C_G8O-LdUOApBssOLyKEIHG9cTKhBLSU6FjSoCkUO9FIZ4sc25DVDiepDfThi9rfVgPSR_0FjW7fS0pcbhG83IIGCal7jSKEFb_YIbLHUgGnARXpi7lQ6oCq3otL8qGRCuFYhcPMIYwBaKp18N0wrIpJw7_Oq6AYKF39NGZz2yo5kicIz4102NJyr41NwTfQYQiDYqLjfHj-izHpRzDzTp3ExhGTisXql903SZ60cBusz4ByIgZw4oydmgqyzYKS_JUYnvgC9R28IB_b6a4efpd17h201p1rx3zRxx6iTk47uoQ0ctwHAqExQAaRxKRmdNXUsSCKa8TTSD5Ll4NHk9H5QFwi3YNVIY2WEVYXaI3_vV2yso_4oa_t0sr4T2NJlgyZntElo6k-GfPzzWp-s4qZhh1k3dvHOHAQ1O55z9P5v1Aq4VR1TmQiFLnuNUCXaWf7UpG1O2LWa6C3
 --- !u!4 &1867266206
 Transform:
   m_ObjectHideFlags: 0
@@ -1349,21 +1501,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1867266207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1867266204}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32973a9523354ded8c983755f0479944, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.SignalR.Runtime::Game.PlayerController
-  signalRManager: {fileID: 1867266208}
-  onPlayerMovedEvent: {fileID: 0}
-  moveMethodName: MovePlayer
 --- !u!114 &1867266208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1376,10 +1513,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf79ec1667b6444ea5a3cc39c1464516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.SignalR.Runtime::SignalRLib.Core.SignalRManager
-  serverConfig: {fileID: 11400000, guid: 22746b915c988486dab9883e0d476f5f, type: 2}
-  incomingChannels:
-  - {fileID: 11400000, guid: 7f4074ac92ae8467a9e952543ac3192d, type: 2}
-  onConnectionStatusChanged: {fileID: 11400000, guid: 79cf81cea50e8429a968aaf553dc8d27, type: 2}
+  gameHub: {fileID: 11400000, guid: e9fe6c5d37a9a44aaa3aaaac2db30758, type: 2}
+  authSession: {fileID: 11400000, guid: bc3dad81f5f454e9bac19988c7de4f78, type: 2}
+  onPlayerUpdated: {fileID: 11400000, guid: aae9f00c489d8425b9a36d50b2f65bb4, type: 2}
+  token: CfDJ8OjrxVm0A_dHsEiPwh-yNB7Cuu6Rcc-esyG4-hBLZjTlqsSsL2UVGKD_hAzY5SopJgl7kJHtoUp3rnOUVQSsVGZkhkm5-tpnaH-L0e7jYAgsKN2kGvMjWtftgrnOIBfNCeZUPH4KtfReWj67MUtVjfGu_nEMm_k_3fDeyPYzIUeYYsv9bgj7YK8SvbCP5Rhp2SOwSsG_OYtLEPev1tBE1WEdR0ou_5ES_U7wJnm5uyP33ry4v5qvWMJtRNgtZVzP8J2Rc4yagTEShFd2ArYYV_99_Cx-lUJIa297mbuF_RJ8WZOtc_Iiz8a-wpEEO5mYrAxKv1TnlQ4FchvVJXVNCmYdZuBGFsvLo-vpc47H6TyBJtNA8S7allrqLtBun5bsft_vf9UbV1nG4ZbniDUNWxXG4RVl3SsPmRAY1Utd2w-mhViv7f6rH3MUgDpJ7-zIrJ8GUGzCqWP5c3IiLtbfI4UfYBMr99SGs-V4K7RuYXG6gknYCXlcEdNeHVxLUy5tpY34tQYCR59IkdBlMEcuFiIOo7Xakys88oCwLpihbLwoHQ9G7jtL-zkS7atPHx-bhi2rZEiY5lyWyWfp6siP_siVDfWAGce7JH3WV3OTv0X8BYJZVcsyVeBcb1CdlRo67mkLqD2MPEyBaa0PLgBXZOScJnu9-pDK2EVY7N3MCFCs9zsAnM5376X6CQ6t6KvPh9BpHTYHF9jO-jT3TzXdtctwM3fuDnegDOt9v-rnnlaJ
+--- !u!114 &1867266209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867266204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 670edb6892d24e56a600da92280fc931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::PingPongTester
+  gameHub: {fileID: 11400000, guid: e9fe6c5d37a9a44aaa3aaaac2db30758, type: 2}
+  onPongReceived: {fileID: 11400000, guid: 1a00991962847410ba920498d18ad9d4, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7657a29fff9f48aca0840d3f0b28780a, type: 3}
   m_Name: ServerConfig
   m_EditorClassIdentifier: Unity.SignalR.Runtime::SignalRLib.SO.ServerConfigSO
+  authSession: {fileID: 11400000, guid: bc3dad81f5f454e9bac19988c7de4f78, type: 2}
   baseUrl: http://localhost
   port: 5525
   hubPath: /hubs/game
-  useRemoteConfig: 0
-  remoteConfigUrl: https://api.mygame.com/v1/server-info
-  AutoReconnect: 1
-  ReconnectDelaysMs: 00000000d00700001027000030750000
+  autoReconnect: 1
+  reconnectDelaysMs: 00000000d00700001027000030750000

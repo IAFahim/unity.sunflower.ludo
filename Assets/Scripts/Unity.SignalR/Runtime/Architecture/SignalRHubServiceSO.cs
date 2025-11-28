@@ -87,9 +87,7 @@ namespace SignalRLib.Architecture
             NotifyStatus("Disconnected");
         }
 
-        // ========================================================================
-        // Sending (Typesafe & AOT Safe)
-        // ========================================================================
+        public void Send(string method) => SendCore(method, Array.Empty<object>()).Forget();
 
         public void Send(string method, object arg1) => SendCore(method, new[] { arg1 }).Forget();
         public void Send(string method, object arg1, object arg2) => SendCore(method, new[] { arg1, arg2 }).Forget();

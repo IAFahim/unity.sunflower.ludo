@@ -26,12 +26,6 @@ public class SingalRManager : MonoBehaviour
         // 2. Connect (Usually done in a Login screen, but works here too)
         // Note: In real app, you'd set the token first
     }
-    
-    private void Start()
-    {
-        authSession.SetToken(token); 
-        gameHub.ConnectAsync().Forget();
-    }
 
     private void OnDisable()
     {

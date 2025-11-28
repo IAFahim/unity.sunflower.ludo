@@ -14,8 +14,11 @@ namespace Ludos.Client
         [Header("Network Services")]
         [SerializeField] private SignalRHubServiceSO ludoHub;
         [SerializeField] private AuthSessionSO authSession;
+        public event Action<string> RoomJoined;
 
         [Header("Listening Channels")]
+        
+        [SerializeField] private StringEvent onRoomCreatedEvent;
         [SerializeField] private ByteArrayEvent onGameStateReceived; // Drag LudoGameStateChannel event here
         [SerializeField] private IntegerEvent onRollResultReceived;   // Drag LudoIntChannel event here
         [SerializeField] private StringEvent onPlayerJoined;
@@ -34,12 +37,14 @@ namespace Ludos.Client
         {
             onGameStateReceived.AddListener(HandleStateUpdate);
             onRollResultReceived.AddListener(HandleRollResult);
+            onRoomCreatedEvent.AddListener(HandleRoomCreated);
         }
 
         private void OnDisable()
         {
             onGameStateReceived.RemoveListener(HandleStateUpdate);
             onRollResultReceived.RemoveListener(HandleRollResult);
+            onRoomCreatedEvent.RemoveListener(HandleRoomCreated);
         }
 
         // =================================================================================
@@ -84,7 +89,7 @@ namespace Ludos.Client
 
         public void SendCreateGame()
         {
-            ludoHub.Send("CreateGame", null); // Server returns RoomID via return value, tough with void Send. 
+            ludoHub.Send("CreateGame"); // Server returns RoomID via return value, tough with void Send. 
             // Better: Hub sends "RoomCreated" event back.
         }
 
@@ -111,5 +116,15 @@ namespace Ludos.Client
 
         // Helper to set seat (Call this from a UI input field or Join response)
         public void SetMySeat(int seat) => MySeatIndex = seat;
+        
+        private void HandleRoomCreated(string roomId)
+        {
+            Debug.Log($"[Ludo] Room Created/Joined: {roomId}");
+            // We assume seat 0 (Host) if we just got a Room Created event usually, 
+            MySeatIndex = 0; 
+            // or the server tells us via a separate packet.
+            // For now, let's just notify the UI.
+            RoomJoined?.Invoke(roomId);
+        }
     }
 }

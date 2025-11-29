@@ -2417,6 +2417,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: Ui.Runtime::DefaultNamespace.CoinController
   coinVariable: {fileID: 11400000, guid: eb04787ac735a4ce084d68a0699872d8, type: 2}
   coinText: {fileID: 632938934}
+--- !u!1 &1179980821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1179980824}
+  - component: {fileID: 1179980823}
+  - component: {fileID: 1179980822}
+  m_Layer: 0
+  m_Name: Test.1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1179980822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179980821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c3b564a2574eb7ac1e696b4f2fd4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::LudoClient
+  authClient: {fileID: 1179980823}
+  joinRoomIdInput: 
+  tokenIndexToMove: 0
+  statusText: 
+--- !u!114 &1179980823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179980821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7515dbcacb864097a566dd41436b0360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::Ludos.Testing.LudoGodModeTester
+  baseUrl: http://localhost:5525
+  emailInput: w213@gmail.com
+  passwordInput: wW213@gmail.com
+  amountInput: 10
+  logText: 
+--- !u!4 &1179980824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179980821}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1197999425
 GameObject:
   m_ObjectHideFlags: 0
@@ -3431,6 +3497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1490136276}
   - component: {fileID: 1490136277}
+  - component: {fileID: 1490136278}
   m_Layer: 0
   m_Name: Test
   m_TagString: Untagged
@@ -3470,6 +3537,22 @@ MonoBehaviour:
   passwordInput: wW23@gmail.com
   amountInput: 10
   logText: 
+--- !u!114 &1490136278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490136275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c3b564a2574eb7ac1e696b4f2fd4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::LudoClient
+  authClient: {fileID: 1490136277}
+  joinRoomIdInput: 
+  tokenIndexToMove: 0
+  statusText: 
 --- !u!114 &1494639087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4605,3 +4688,4 @@ SceneRoots:
   - {fileID: 1786206138}
   - {fileID: 570340101}
   - {fileID: 1490136276}
+  - {fileID: 1179980824}

@@ -9,190 +9,136 @@ public class LudoClient : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameAuthClient authClient;
 
-    [Header("Game Inputs")]
-    [SerializeField] private string joinRoomIdInput; // Type the Room ID here to join
-    [SerializeField] private int tokenIndexToMove;   // 0-3 (Which piece to move)
+    [Header("Game Info")]
+    [SerializeField] private string _roomId;
+    [SerializeField] private int _mySeat = -1;
+    [SerializeField] private int _currentTurnSeat = -1; // -1 means "Unknown/Not Started"
+    
+    [Header("Controls")]
+    [SerializeField] private int _tokenIndex = 0;
 
-    [Header("UI Output")]
-    [TextArea(5, 10)] 
-    [SerializeField] private string statusText;
-
-    // State
     private HubConnection _hub;
-    private string _currentRoomId;
 
-    #region Connection Setup
+    #region 1. Connection
 
     [Button]
-    public async void OnClick_ConnectToGameServer()
+    public async void Connect()
     {
-        if (authClient == null) { Log("❌ Error: GameAuthClient reference missing!"); return; }
-        if (!authClient.IsLoggedIn) { Log("❌ Error: You must Login in GameAuthClient first!"); return; }
-
-        await ConnectToHub();
-    }
-
-    private async Task ConnectToHub()
-    {
+        if (authClient == null || !authClient.IsLoggedIn) { Log("❌ Login in AuthClient first!"); return; }
         if (_hub != null) await _hub.DisposeAsync();
 
-        // 1. Construct URL (Note: /hubs/ludo based on your LudoModule configuration)
-        string hubUrl = $"{authClient.baseUrl}/hubs/ludo";
-        string token = authClient.AccessToken;
-
+        string url = $"{authClient.baseUrl}/hubs/ludo";
+        
         _hub = new HubConnectionBuilder()
-            .WithUrl(hubUrl, options =>
-            {
-                options.AccessTokenProvider = () => Task.FromResult(token);
-            })
+            .WithUrl(url, o => o.AccessTokenProvider = () => Task.FromResult(authClient.AccessToken))
             .WithAutomaticReconnect()
             .Build();
 
-        // 2. Register Event Handlers
-        RegisterHandlers();
+        RegisterEvents();
 
-        // 3. Start Connection
-        try
-        {
+        try {
             await _hub.StartAsync();
-            RunOnMainThread(() => Log("✅ Connected to Ludo Hub!"));
-        }
-        catch (Exception ex)
-        {
-            RunOnMainThread(() => Log($"❌ Connection Error: {ex.Message}"));
-        }
+            Log("✅ Connected to Hub!");
+        } catch (Exception ex) { Log("Conn Error: " + ex.Message); }
     }
 
-    private void RegisterHandlers()
+    [Button]
+    public async void DisconnectAndClear()
     {
-        // Called when you create a room
-        _hub.On<string>("RoomCreated", (roomId) =>
-        {
-            _currentRoomId = roomId;
-            RunOnMainThread(() => 
-            {
-                joinRoomIdInput = roomId; // Auto-fill for convenience
-                Log($"🏠 Room Created: {roomId} (Waiting for players...)");
-            });
-        });
-
-        // Called when anyone joins (including you)
-        _hub.On<string>("PlayerJoined", (userId) =>
-        {
-            RunOnMainThread(() => Log($"👋 Player Joined: {userId}"));
-        });
-
-        // Called when you join successfully or a move/roll happens
-        _hub.On<byte[]>("GameState", (stateBytes) =>
-        {
-            // The server sends a raw struct byte array. 
-            // For now, we just acknowledge receipt. To parse this, you'd need the Struct layout.
-            RunOnMainThread(() => Log($"📦 Game State Received ({stateBytes.Length} bytes)"));
-        });
-
-        _hub.On<byte>("RollResult", (dice) =>
-        {
-            RunOnMainThread(() => Log($"🎲 Dice Rolled: {dice}"));
-        });
-        
-        _hub.On<string>("GameWon", (winnerId) =>
-        {
-            RunOnMainThread(() => Log($"🏆 GAME OVER! Winner: {winnerId}"));
-        });
-
-        _hub.On<string>("Error", (msg) =>
-        {
-            RunOnMainThread(() => Log($"<color=red>Server Error: {msg}</color>"));
-        });
+        if (_hub != null) await _hub.DisposeAsync();
+        _roomId = "";
+        _mySeat = -1;
+        _currentTurnSeat = -1;
+        Log("🔌 Disconnected.");
     }
 
     #endregion
 
-    #region Game Actions
+    #region 2. Events
 
-    [Button]
-    public async void OnClick_CreateRoom()
+    private void RegisterEvents()
     {
-        if (!CheckConnection()) return;
-        Log("Creating Room...");
-        await _hub.SendAsync("CreateGame");
-    }
+        _hub.On<string>("PlayerJoined", (uid) => RunOnMain(() => Log($"👋 Player Joined: {uid}")));
 
-    [Button]
-    public async void OnClick_JoinRoom()
-    {
-        if (!CheckConnection()) return;
-        if (string.IsNullOrEmpty(joinRoomIdInput)) { Log("❌ Enter a Room ID first!"); return; }
-
-        Log($"Joining Room {joinRoomIdInput}...");
-
-        // We use InvokeAsync<bool> to get the return value immediately
-        try 
-        {
-            bool success = await _hub.InvokeAsync<bool>("JoinGame", joinRoomIdInput);
+        // The critical update: Getting the board state
+        _hub.On<byte[]>("GameState", (data) => RunOnMain(() => {
+            if (data.Length < 28) return;
             
-            if (success)
-            {
-                _currentRoomId = joinRoomIdInput;
-                Log($"✅ Successfully joined room: {_currentRoomId}");
-            }
-            else
-            {
-                Log("❌ Failed to join room (Full or doesn't exist).");
-            }
-        }
-        catch(Exception ex)
-        {
-            Log($"❌ Join Error: {ex.Message}");
-        }
+            _currentTurnSeat = data[16]; // Byte 16 is CurrentPlayer
+            int dice = data[17];         // Byte 17 is LastDice
+            
+            string turnMsg = (_currentTurnSeat == _mySeat) ? "🟢 YOUR TURN!" : $"🔴 Turn: Seat {_currentTurnSeat}";
+            Log($"🔄 State: {turnMsg} | Dice: {dice}");
+        }));
+
+        _hub.On<byte>("RollResult", (d) => RunOnMain(() => Log($"🎲 Rolled: {d}")));
+        _hub.On<string>("Error", (m) => RunOnMain(() => Log($"🛑 Error: {m}")));
+    }
+
+    #endregion
+
+    #region 3. Actions
+
+    [Button]
+    public async void CreateRoom()
+    {
+        if (!IsConnected()) return;
+        try {
+            // This waits for the string return from Server
+            string id = await _hub.InvokeAsync<string>("CreateGame");
+            
+            RunOnMain(() => {
+                _roomId = id;
+                _mySeat = 0; // Creator is always Seat 0
+                _currentTurnSeat = 0; // Game always starts at Seat 0
+                Log($"✅ Room Created: {id}. You are Seat 0.");
+                Log("👉 Click 'Roll Dice' to start.");
+            });
+        } 
+        catch (Exception ex) { Log("❌ Create Failed: " + ex.Message); }
     }
 
     [Button]
-    public async void OnClick_RollDice()
+    public async void JoinRoom()
     {
-        if (!CheckConnection()) return;
-        if (string.IsNullOrEmpty(_currentRoomId)) { Log("❌ No active room."); return; }
+        if (!IsConnected() || string.IsNullOrEmpty(_roomId)) { Log("❌ Enter Room ID first"); return; }
         
-        await _hub.SendAsync("RollDice", _currentRoomId);
+        try {
+            bool success = await _hub.InvokeAsync<bool>("JoinGame", _roomId);
+            if (success) {
+                // We assume Seat 1 for testing simplicity. 
+                // Ideally, server should tell us our seat in the Join response.
+                if (_mySeat == -1) _mySeat = 1; 
+                Log($"✅ Joined {_roomId}. Assuming Seat {_mySeat}.");
+            } else {
+                Log("❌ Join Failed (Room Full or Not Found).");
+            }
+        }
+        catch (Exception ex) { Log("❌ Join Error: " + ex.Message); }
     }
 
     [Button]
-    public async void OnClick_MoveToken()
+    public async void RollDice()
     {
-        if (!CheckConnection()) return;
-        if (string.IsNullOrEmpty(_currentRoomId)) { Log("❌ No active room."); return; }
+        if (!IsConnected()) return;
+        // Logic check: only warn, don't block (in case client state is desynced)
+        if (_currentTurnSeat != -1 && _currentTurnSeat != _mySeat) 
+            Log($"⚠️ Warning: Client thinks it is Seat {_currentTurnSeat}'s turn."); 
+        
+        await _hub.SendAsync("RollDice", _roomId);
+    }
 
-        Log($"Moving Token {tokenIndexToMove}...");
-        await _hub.SendAsync("MoveToken", _currentRoomId, tokenIndexToMove);
+    [Button]
+    public async void MoveToken()
+    {
+        if (!IsConnected()) return;
+        await _hub.SendAsync("MoveToken", _roomId, _tokenIndex);
     }
 
     #endregion
 
-    #region Helpers
-
-    private bool CheckConnection()
-    {
-        if (_hub?.State != HubConnectionState.Connected)
-        {
-            Log("⚠️ Not connected. Click 'Connect To Game Server' first.");
-            return false;
-        }
-        return true;
-    }
-
-    private void Log(string msg)
-    {
-        Debug.Log($"[Ludo] {msg}");
-        statusText = msg + "\n" + statusText;
-        if (statusText.Length > 2000) statusText = statusText.Substring(0, 2000);
-    }
-
-    private void RunOnMainThread(Action action)
-    {
-        UnityMainThreadDispatcher.Instance().Enqueue(action);
-    }
-    
-    private void OnDestroy() { _hub?.DisposeAsync(); }
-
-    #endregion
+    private bool IsConnected() => _hub?.State == HubConnectionState.Connected;
+    private void Log(string m) => Debug.Log($"[Ludo] {m}");
+    private void RunOnMain(Action a) => UnityMainThreadDispatcher.Instance().Enqueue(a);
+    private void OnDestroy() => _hub?.DisposeAsync();
 }

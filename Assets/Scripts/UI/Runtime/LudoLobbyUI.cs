@@ -40,16 +40,12 @@ namespace Ludos.Client.UI
             // copyRoomIdBtn.onClick.AddListener(CopyRoomIdToClipboard);
 
             // Bind Manager Events
-            gameManager.RoomJoined += OnRoomJoined;
-            gameManager.StateUpdated += OnGameStateReceived;
         }
 
         private void OnDestroy()
         {
             if (gameManager)
             {
-                gameManager.RoomJoined -= OnRoomJoined;
-                gameManager.StateUpdated -= OnGameStateReceived;
             }
         }
 
@@ -61,8 +57,6 @@ namespace Ludos.Client.UI
         {
             SetBusy("Creating Room...");
             // We assume Host is Seat 0
-            gameManager.SetMySeat(0);
-            gameManager.SendCreateGame();
         }
 
         private void OnJoinClicked()
@@ -77,9 +71,6 @@ namespace Ludos.Client.UI
 
             SetBusy($"Joining {roomCode}...");
             
-            // We assume Joiner is Seat 2 (Standard 2p Ludo)
-            gameManager.SetMySeat(2);
-            gameManager.SendJoinGame(roomCode);
         }
 
         // ==============================================================================

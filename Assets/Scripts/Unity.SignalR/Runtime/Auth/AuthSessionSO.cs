@@ -7,7 +7,7 @@ namespace SignalRLib.SO
     public class AuthSessionSO : ScriptableObject
     {
         // Volatile: Cleared when game restarts
-        [System.NonSerialized] 
+        [SerializeField] 
         private string _accessToken;
 
         public string AccessToken => _accessToken;

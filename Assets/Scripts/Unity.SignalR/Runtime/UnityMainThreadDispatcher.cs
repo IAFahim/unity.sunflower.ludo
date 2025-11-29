@@ -27,6 +27,7 @@ public class UnityMainThreadDispatcher : MonoBehaviour
 
     public void Enqueue(Action action)
     {
+        Debug.Log(action.Method.ToString());
         lock (_executionQueue)
         {
             _executionQueue.Enqueue(action);

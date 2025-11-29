@@ -1,130 +1,96 @@
-// FILE: Assets/Ludos/Client/LudoGameManager.cs
 using System;
 using Ludos.Core;
 using UnityEngine;
-using SignalRLib.Architecture;
+using Cysharp.Threading.Tasks;
 using SignalRLib.SO;
-using Unity.SignalR.Runtime;
-using VirtueSky.Events;
 
-namespace Ludos.Client
+public class LudoGameManager : MonoBehaviour
 {
-    public class LudoGameManager : MonoBehaviour
+    [Header("Network")]
+    [SerializeField] private LudoHubClient client; // Drag the script here
+    
+    // Runtime State
+    public LudoState CurrentState;
+    public bool IsMyTurn { get; private set; }
+    public int MySeatIndex { get; private set; } = -1;
+    private string _currentRoomId;
+
+    public AuthSessionSO authSessionSo;
+    
+    private void OnEnable()
     {
-        [Header("Network Services")]
-        [SerializeField] private SignalRHubServiceSO ludoHub;
-        [SerializeField] private AuthSessionSO authSession;
-        public event Action<string> RoomJoined;
+        client.OnRoomCreated += HandleRoomCreated;
+        client.OnGameStateReceived += HandleStateUpdate;
+        client.OnDiceRolled += OnClientOnOnDiceRolled;
+    }
 
-        [Header("Listening Channels")]
+    private void Start()
+    {
+        if (authSessionSo.IsLoggedIn)
+        {
+            client.ConnectAsync().Forget();
+        }
+    }
+
+    private void OnClientOnOnDiceRolled(int dice)
+    {
+        Debug.Log($"Dice: {dice}");
+    }
+
+    private void OnDisable()
+    {
+        client.OnRoomCreated -= HandleRoomCreated;
+        client.OnGameStateReceived -= HandleStateUpdate;
+        client.OnDiceRolled -= OnClientOnOnDiceRolled;
+
+    }
+
+    // --- UI Commands ---
+
+    public void UI_CreateGame()
+    {
+        MySeatIndex = 0; // Host
+        client.CreateGame();
+    }
+
+    public void UI_JoinGame(string roomId)
+    {
+        MySeatIndex = 2; // Joiner (Simple Logic)
+        client.JoinGame(roomId);
+    }
+
+    public void UI_RollDice()
+    {
+        if (!IsMyTurn) return;
+        client.RollDice(_currentRoomId);
+    }
+
+    public void UI_MoveToken(int tokenIndex)
+    {
+        if (!IsMyTurn) return;
+        client.MoveToken(_currentRoomId, tokenIndex);
+    }
+
+    // --- Handlers ---
+
+    private void HandleRoomCreated(string roomId)
+    {
+        _currentRoomId = roomId;
+        Debug.Log($"Room Created: {roomId}");
+    }
+
+    private unsafe void HandleStateUpdate(byte[] data)
+    {
+        if (data.Length != 28) return;
+
+        fixed (byte* ptr = data)
+        {
+            CurrentState = *(LudoState*)ptr;
+        }
+
+        IsMyTurn = (CurrentState.CurrentPlayer == MySeatIndex);
         
-        [SerializeField] private StringEvent onRoomCreatedEvent;
-        [SerializeField] private ByteArrayEvent onGameStateReceived; // Drag LudoGameStateChannel event here
-        [SerializeField] private IntegerEvent onRollResultReceived;   // Drag LudoIntChannel event here
-        [SerializeField] private StringEvent onPlayerJoined;
-
-        [Header("Runtime State")]
-        // We expose the raw struct. Renderers read this.
-        public LudoState CurrentState; 
-        public bool IsMyTurn { get; private set; }
-        public int MySeatIndex { get; private set; } = -1; // 0=Red, 1=Green...
-
-        // Events for UI/Visuals to subscribe to
-        public event Action<LudoState> StateUpdated;
-        public event Action<int> DiceRolled;
-
-        private void OnEnable()
-        {
-            onGameStateReceived.AddListener(HandleStateUpdate);
-            onRollResultReceived.AddListener(HandleRollResult);
-            onRoomCreatedEvent.AddListener(HandleRoomCreated);
-        }
-
-        private void OnDisable()
-        {
-            onGameStateReceived.RemoveListener(HandleStateUpdate);
-            onRollResultReceived.RemoveListener(HandleRollResult);
-            onRoomCreatedEvent.RemoveListener(HandleRoomCreated);
-        }
-
-        // =================================================================================
-        // 1. INCOMING DATA HANDLERS
-        // =================================================================================
-
-        private unsafe void HandleStateUpdate(byte[] rawData)
-        {
-            if (rawData == null || rawData.Length != 28)
-            {
-                Debug.LogError($"[Ludo] Invalid state packet size: {rawData?.Length}");
-                return;
-            }
-
-            // Efficient Byte[] -> Struct Deserialization
-            fixed (byte* ptr = rawData)
-            {
-                CurrentState = *(LudoState*)ptr;
-            }
-
-            // Determine if it's my turn
-            // Note: We need to know which Seat (0-3) belongs to our UserId.
-            // In a real app, the "JoinGame" response would tell us our Seat Index.
-            // For now, let's assume the Server told us via a separate RPC or we infer it.
-            // Let's assume we stored MySeatIndex when we joined.
-            
-            IsMyTurn = (CurrentState.CurrentPlayer == MySeatIndex);
-
-            Debug.Log($"[Ludo] State Updated. Turn: P{CurrentState.CurrentPlayer}. MyTurn: {IsMyTurn}");
-            StateUpdated?.Invoke(CurrentState);
-        }
-
-        private void HandleRollResult(int value)
-        {
-            Debug.Log($"[Ludo] Dice Rolled: {value}");
-            DiceRolled?.Invoke(value);
-        }
-
-        // =================================================================================
-        // 2. OUTGOING COMMANDS (Called by UI)
-        // =================================================================================
-
-        public void SendCreateGame()
-        {
-            ludoHub.Send("CreateGame"); // Server returns RoomID via return value, tough with void Send. 
-            // Better: Hub sends "RoomCreated" event back.
-        }
-
-        public void SendJoinGame(string roomId)
-        {
-            // Simple hash for testing to determine seat. 
-            // Real logic: Server response tells you your seat.
-            // For this demo, if I created it, I'm 0. If I joined, I'm 2.
-            MySeatIndex = 0; // Force P0 for testing host
-            ludoHub.Send("JoinGame", roomId);
-        }
-
-        public void SendRollDice(string roomId)
-        {
-            if (!IsMyTurn) return;
-            ludoHub.Send("RollDice", roomId);
-        }
-
-        public void SendMoveToken(string roomId, int tokenIndex)
-        {
-            if (!IsMyTurn) return;
-            ludoHub.Send("MoveToken", roomId, tokenIndex);
-        }
-
-        // Helper to set seat (Call this from a UI input field or Join response)
-        public void SetMySeat(int seat) => MySeatIndex = seat;
-        
-        private void HandleRoomCreated(string roomId)
-        {
-            Debug.Log($"[Ludo] Room Created/Joined: {roomId}");
-            // We assume seat 0 (Host) if we just got a Room Created event usually, 
-            MySeatIndex = 0; 
-            // or the server tells us via a separate packet.
-            // For now, let's just notify the UI.
-            RoomJoined?.Invoke(roomId);
-        }
+        // Notify Visuals...
+        Debug.Log($"State Sync. Turn: {CurrentState.CurrentPlayer}");
     }
 }

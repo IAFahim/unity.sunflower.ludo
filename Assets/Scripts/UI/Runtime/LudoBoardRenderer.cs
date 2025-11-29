@@ -35,15 +35,9 @@ namespace Ludos.Client.Visuals
                 return;
             }
 
-            manager.StateUpdated += RenderState;
             InitializeBoard();
         }
-
-        private void OnDestroy()
-        {
-            if (manager) manager.StateUpdated -= RenderState;
-        }
-
+        
         private void InitializeBoard()
         {
             _spawnedTokens.Clear();
@@ -70,8 +64,6 @@ namespace Ludos.Client.Visuals
                     if (rend && p < playerColors.Length) rend.material.color = playerColors[p];
 
                     // Input Handler (Make sure you have this script created from previous step)
-                    var input = go.AddComponent<LudoTokenInput>();
-                    input.Setup(manager, t);
 
                     _spawnedTokens[go.name] = go.transform;
                 }

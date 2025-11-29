@@ -1213,7 +1213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &417383490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,6 +1259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23258e2818da49119279efd08794e134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.SignalR.Runtime::Ludos.Client.Visuals.LudoTokenInput
+  _manager: {fileID: 0}
+  _tokenIndex: 0
 --- !u!114 &417383493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1266,17 +1268,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417383489}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 975bff16244b482db5c77a884e3323a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.SignalR.Runtime::Ludos.Client.LudoGameManager
-  ludoHub: {fileID: 11400000, guid: 86776f6d5ad8f473dbfdc6d98df7f94f, type: 2}
-  authSession: {fileID: 11400000, guid: bc3dad81f5f454e9bac19988c7de4f78, type: 2}
-  onRoomCreatedEvent: {fileID: 11400000, guid: 3c3b9bd1ae51f471fa112561f9fde739, type: 2}
-  onGameStateReceived: {fileID: 11400000, guid: 00ef4a0f607904685ae0413037c9bb9e, type: 2}
-  onRollResultReceived: {fileID: 11400000, guid: dc2d11946c709480987753ca943325dc, type: 2}
-  onPlayerJoined: {fileID: 11400000, guid: 74b84387b486b4b9e8f32b7be7831c64, type: 2}
+  client: {fileID: 570340100}
+  authSessionSo: {fileID: 11400000, guid: bc3dad81f5f454e9bac19988c7de4f78, type: 2}
 --- !u!4 &417383494
 Transform:
   m_ObjectHideFlags: 0
@@ -1594,6 +1592,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485519743}
   m_CullTransparentMesh: 1
+--- !u!1 &570340098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 570340101}
+  - component: {fileID: 570340100}
+  - component: {fileID: 570340099}
+  m_Layer: 0
+  m_Name: Manger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &570340099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570340098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975bff16244b482db5c77a884e3323a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::LudoGameManager
+  client: {fileID: 570340100}
+  authSessionSo: {fileID: 11400000, guid: bc3dad81f5f454e9bac19988c7de4f78, type: 2}
+--- !u!114 &570340100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570340098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db12ff7adcbd4a2993d8a292dbb22d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::LudoHubClient
+  serverUrl: http://localhost:5525/hubs/game
+  authSession: {fileID: 11400000, guid: bc3dad81f5f454e9bac19988c7de4f78, type: 2}
+--- !u!4 &570340101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570340098}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &632938932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3362,6 +3421,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425104367}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1490136275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1490136276}
+  - component: {fileID: 1490136277}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1490136276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490136275}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1490136277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490136275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7515dbcacb864097a566dd41436b0360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.SignalR.Runtime::Ludos.Testing.LudoGodModeTester
+  baseUrl: http://localhost:5525
+  emailInput: w23@gmail.com
+  passwordInput: wW23@gmail.com
+  amountInput: 10
+  logText: 
 --- !u!114 &1494639087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3692,7 +3800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1786206138
 Transform:
   m_ObjectHideFlags: 0
@@ -4495,3 +4603,5 @@ SceneRoots:
   - {fileID: 417383494}
   - {fileID: 1268108133}
   - {fileID: 1786206138}
+  - {fileID: 570340101}
+  - {fileID: 1490136276}
